@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:njm_mobileapp/screens/login_screen.dart';
 import 'package:njm_mobileapp/screens/splash_screen.dart';
 
 final theme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
-    brightness: Brightness.dark,
+    brightness: Brightness.light,
     seedColor: const Color.fromARGB(255, 16, 69, 99),
   ),
 );
@@ -21,7 +22,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: const SplashScreen(),
+      home: const LoginScreen(),
     );
   }
 }
