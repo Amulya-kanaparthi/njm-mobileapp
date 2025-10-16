@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:njm_mobileapp/constants/image_constants.dart';
+import 'package:njm_mobileapp/constants/string_constants.dart';
 import 'package:njm_mobileapp/screens/register_screen.dart';
 import 'package:njm_mobileapp/widgets/custom_textfield.dart';
 
@@ -22,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             /// NJM Logo
             Image.asset(
-              'assets/images/splash_logo.png',
+              ImageConstants.splashLogo,
               width: 200,
               height: 200,
             ),
@@ -31,12 +33,12 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   /// User name or email TextField
-                  CustomTextField(label: 'Username, email or mobile number'),
+                  CustomTextField(label: StringConstants.userNameEmailMobileNumber),
 
                   SizedBox(height: 15),
 
                   /// Password TextField
-                  CustomTextField(label: 'Password', isPassword: true),
+                  CustomTextField(label: StringConstants.password, isPassword: true),
 
                   SizedBox(height: 15),
 
@@ -51,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         foregroundColor: Colors.white, // Text color
                         shape: StadiumBorder(),
                       ),
-                      child: Text('Log in', style: TextStyle(fontSize: 16)),
+                      child: Text(ButtonStrConstants.login, style: TextStyle(fontSize: 16)),
                     ),
                   ),
 
@@ -62,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextButton(
                         onPressed: () {},
                         child: Text(
-                          'Forgot password?',
+                          ButtonStrConstants.forgotPassword,
                           style: TextStyle(fontSize: 14),
                         ),
                       ),
@@ -90,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: StadiumBorder(),
                   ),
                   child: Text(
-                    'Create new account',
+                    ButtonStrConstants.createNewAccount,
                     style: TextStyle(fontSize: 16),
                   ),
                 ),

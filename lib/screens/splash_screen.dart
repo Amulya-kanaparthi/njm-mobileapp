@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:njm_mobileapp/screens/tabs.dart';
+import 'package:njm_mobileapp/constants/image_constants.dart';
+import 'package:njm_mobileapp/screens/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const TabsScreen()),
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
       );
     });
   }
@@ -40,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset('assets/images/splash_logo.png', width: 150),
+              Image.asset(ImageConstants.splashLogo, width: 150),
               const SizedBox(height: 20),
               const Text(
                 'Hey Welcome!',

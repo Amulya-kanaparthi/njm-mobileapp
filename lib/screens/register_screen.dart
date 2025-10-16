@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:njm_mobileapp/constants/image_constants.dart';
+import 'package:njm_mobileapp/constants/string_constants.dart';
 import 'package:njm_mobileapp/screens/login_screen.dart';
+import 'package:njm_mobileapp/utility/showAlertDialog.dart';
 import 'package:njm_mobileapp/widgets/custom_textfield.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -15,7 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register Screen')),
+      appBar: AppBar(title: const Text(StringConstants.registerScreenTitle)),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -26,19 +29,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 children: [
                   /// Username TextField
-                  CustomTextField(label: 'Username'),
+                  CustomTextField(label: StringConstants.userName),
                   SizedBox(height: 15),
 
                   /// Phone number TextField
-                  CustomTextField(label: 'Phone number'),
+                  CustomTextField(label: StringConstants.phoneNumber),
                   SizedBox(height: 15),
 
                   /// Email TextField
-                  CustomTextField(label: 'Email'),
+                  CustomTextField(label: StringConstants.email),
                   SizedBox(height: 15),
 
                   /// Password TextField
-                  CustomTextField(label: 'Password', isPassword: true),
+                  CustomTextField(label: StringConstants.password, isPassword: true),
                   SizedBox(height: 15),
 
                   SizedBox(
@@ -51,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         foregroundColor: Colors.white, // Text color
                         shape: StadiumBorder(),
                       ),
-                      child: Text('Create', style: TextStyle(fontSize: 16)),
+                      child: Text(ButtonStrConstants.create, style: TextStyle(fontSize: 16)),
                     ),
                   ),
 
@@ -67,12 +70,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         // Handle Google Sign-Up logic here
                       },
                       icon: Image.asset(
-                        'assets/images/google_logo.png',
+                        ImageConstants.googleLogo,
                         height: 24, // Icon size
                         width: 24,
                       ),
                       label: Text(
-                        'Sign up with Google',
+                        StringConstants.googleSignIn,
                         style: TextStyle(fontSize: 16, color: Colors.blue),
                       ),
                       style: OutlinedButton.styleFrom(
@@ -87,42 +90,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             TextButton(
               onPressed: () {
-                showDialog(
+                AlertDialogHelper.showActionAlert(
                   context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      content: Text('Already have an account?'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(); // Close the alert
-                          },
-                          child: Text(
-                            'Continue creating account'.toUpperCase(),
-                            style: TextStyle(
-                              color: const Color.fromARGB(255, 131, 35, 28),
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
-                              ),
-                            );
-                          },
-                          child: Text('Log in'),
-                        ),
-                      ],
-                    );
+                  title: "",
+                  message: StringConstants.alreadyHaveAccount,
+                  actions: [
+                    DialogType.continueCreatingAccount,
+                    DialogType.login,
+                  ],
+                  onActionPressed: (action) {
+                    if (action == DialogType.continueCreatingAccount) {
+                      Navigator.of(context).pop();
+                    } else {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
+                    }
                   },
                 );
               },
               child: Text(
-                'I already have an account',
+                StringConstants.iAlreadyHaveAccount,
                 style: TextStyle(fontSize: 14),
               ),
             ),
