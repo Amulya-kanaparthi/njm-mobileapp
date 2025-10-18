@@ -7,13 +7,13 @@ class CustomTextField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final double cornerRadius;
   const CustomTextField({
-    Key? key,
+    super.key,
     this.cornerRadius = 15,
     required this.label,
     this.isPassword = false,
     this.controller,
     this.validator,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +26,21 @@ class CustomTextField extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(cornerRadius),
           borderSide: BorderSide(
-            color: Colors.blueGrey,
+            color: Theme.of(context).colorScheme.primary,
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(cornerRadius),
           borderSide: BorderSide(
-            color: Colors.blueGrey,
+            color: Theme.of(context).colorScheme.primary,
             width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(cornerRadius),
           borderSide: BorderSide(
-            color: Colors.blueGrey,
+            color: Theme.of(context).colorScheme.primary,
             width: 1.5,
           ),
         ),

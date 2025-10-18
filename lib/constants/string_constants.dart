@@ -1,4 +1,4 @@
-class StringConstants {
+
   /// This class contains all the string constants used in the application.
   /// It helps in maintaining consistency and makes it easier to manage text across the app.
   /// You can add more strings as needed.
@@ -7,11 +7,13 @@ class StringConstants {
   /// These can be used throughout the app for various labels and messages
   /// Example: Text(StringConstants.appName)
   /// ---------------------------------------------------------------
+class StringConstants {
   static const String appName = "NJM";
   static const String welcome = "Welcome to NJM";
   static const String login = "Login";
   static const String userName = "Username";
-  static const String userNameEmailMobileNumber = "Username, email or mobile number";
+  static const String userNameEmailMobileNumber =
+      "Username, email or mobile number";
   static const String phoneNumber = "Phone number";
   static const String email = "Email";
   static const String password = "Password";
@@ -41,18 +43,19 @@ class StringConstants {
 
   /// Screen Titles
   /// These can be used in AppBars or as section headers
-  /// 
+  ///
   /// Example: AppBar(title: Text(StringConstants.registerScreenTitle))
   /// ---------------------------------------------------------------
   static const String registerScreenTitle = "Register Screen";
   static const String loginScreenTitle = "Login Screen";
 }
 
+/// Button Texts
+/// These can be used for dialog buttons
+/// Example: Text(DialogConstants.ok)
+/// ---------------------------------------------------------------
+
 class DialogConstants {
-  /// Button Texts
-  /// These can be used for dialog buttons
-  /// Example: Text(DialogConstants.ok)
-  /// ---------------------------------------------------------------
   static const String continueCreatingAccount = "Continue Creating Account";
   static const String done = "Done";
   static const String ok = "OK";
@@ -60,11 +63,11 @@ class DialogConstants {
   static const String login = "Log in";
 }
 
+/// Button Texts
+/// These can be used for button labels
+/// Example: ElevatedButton(child: Text(ButtonStrConstants.create))
+/// ---------------------------------------------------------------
 class ButtonStrConstants {
-  /// Button Texts
-  /// These can be used for button labels
-  /// Example: ElevatedButton(child: Text(ButtonStrConstants.create))
-  /// ---------------------------------------------------------------
   static const String create = 'Create';
   static const String done = "Done";
   static const String ok = "OK";

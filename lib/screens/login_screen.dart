@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue, // Button color
+                        backgroundColor: Theme.of(context).colorScheme.primary, // Button color
                         foregroundColor: Colors.white, // Text color
                         shape: StadiumBorder(),
                       ),
@@ -87,8 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                   },
                   style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: Colors.blue, width: 1),
-                    foregroundColor: Colors.blue, // Text color
+                    side: BorderSide(color: Theme.of(context).colorScheme.secondary, width: 1),
+                    foregroundColor: Theme.of(context).colorScheme.secondary, // Text color
                     shape: StadiumBorder(),
                   ),
                   child: Text(

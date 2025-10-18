@@ -50,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue, // Button color
+                        backgroundColor: Theme.of(context).colorScheme.primary, // Button color
                         foregroundColor: Colors.white, // Text color
                         shape: StadiumBorder(),
                       ),
@@ -76,12 +76,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       label: Text(
                         StringConstants.googleSignIn,
-                        style: TextStyle(fontSize: 16, color: Colors.blue),
+                        style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.primary),
                       ),
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.blue, width: 1),
+                        side: BorderSide(color: Theme.of(context).colorScheme.primary, width: 1),
                         shape: StadiumBorder(),
-                        foregroundColor: Colors.blue,
+                        foregroundColor: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ),
