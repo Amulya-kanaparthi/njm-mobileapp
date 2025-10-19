@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:njm_mobileapp/constants/image_constants.dart';
 import 'package:njm_mobileapp/constants/string_constants.dart';
+import 'package:njm_mobileapp/network/api_handler.dart';
 import 'package:njm_mobileapp/screens/login_screen.dart';
 import 'package:njm_mobileapp/utility/showAlertDialog.dart';
 import 'package:njm_mobileapp/widgets/custom_textfield.dart';
@@ -66,8 +67,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: double.infinity,
                     height: 50,
                     child: OutlinedButton.icon(
-                      onPressed: () {
+                      onPressed: () async{
                         // Handle Google Sign-Up logic here
+                        final user = await AuthService().signInWithGoogle();
+                        if(user != null){ 
+                          print('User signed up with Google: $user');   
+                        }else{
+                          print('Google Sign-Up failed or was cancelled');
+                        }
                       },
                       icon: Image.asset(
                         ImageConstants.googleLogo,

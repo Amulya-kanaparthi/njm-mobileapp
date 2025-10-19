@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
 class ApiHandler {
-  static const String baseUrl = "http://localhost:8000/"; // Replace with your API base URL
+  static const String baseUrl = "http://10.0.2.2:8000/"; // Replace with your API base URL
 
   ///  Generic GET Request
   static Future<dynamic> getRequest(String endpoint, {Map<String, String>? headers}) async {
@@ -44,6 +45,39 @@ class ApiHandler {
       throw Exception("Resource not found");
     } else {
       throw Exception("Error ${response.statusCode}: ${responseBody?['message'] ?? 'Unknown error'}");
+    }
+  }
+}
+
+class AuthService{
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email','profile'
+    ],
+    serverClientId: '737789089001-52l833ucndp6ics9nj3tm5go51li2b5f.apps.googleusercontent.com',
+  );
+
+  Future<Map<String,dynamic>?> signInWithGoogle() async{
+    try{
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if(googleUser == null){
+        print('Google Sign-In aborted by user');
+        return null;
+      }
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      final response = await ApiHandler.postRequest('auth/google/mobile-login', body : {
+        'idToken': googleAuth.idToken,
+        'email': googleUser.email,
+        'displayName': googleUser.displayName,
+        'photoUrl': googleUser.photoUrl,
+      });
+      
+      print('Google Sign-In successful: $response');
+      return response;
+    }catch(error){
+      print('Google Sign-In failed: $error');
+      return null;
     }
   }
 }
