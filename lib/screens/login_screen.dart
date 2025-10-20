@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:njm_mobileapp/constants/image_constants.dart';
 import 'package:njm_mobileapp/constants/string_constants.dart';
+import 'package:njm_mobileapp/network/api_handler.dart';
+import 'package:njm_mobileapp/network/end_point.dart';
 import 'package:njm_mobileapp/screens/register_screen.dart';
 import 'package:njm_mobileapp/widgets/custom_textfield.dart';
 
@@ -13,6 +15,23 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  void _submitLogin() {
+    if (_formKey.currentState!.validate()) {
+      // Process login
+      ApiHandler.postRequest(
+        EndPoint.login,
+        body: {
+          'username': 'example_username',
+          'password': 'example_password',
+        },
+      ).then((response) {
+        // Handle successful login
+      }).catchError((error) {
+        // Handle login error
+      }); 
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

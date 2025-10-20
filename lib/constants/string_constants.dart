@@ -40,7 +40,7 @@ class StringConstants {
   static const String sendResetLink = "Send Reset Link";
   static const String enterRegisteredEmail =
       "Please enter your registered email to receive a password reset link.";
-
+  static const String enterOTPSentToRegisteredEmail = 'Enter the OTP sent to your registered email.';
   /// Screen Titles
   /// These can be used in AppBars or as section headers
   ///
@@ -48,6 +48,7 @@ class StringConstants {
   /// ---------------------------------------------------------------
   static const String registerScreenTitle = "Register Screen";
   static const String loginScreenTitle = "Login Screen";
+  static const String otpScreenTitle = "OTP Screen";
 }
 
 /// Button Texts
@@ -75,4 +76,13 @@ class ButtonStrConstants {
   static const String login = "Log in";
   static const String createNewAccount = "Create new account";
   static const String forgotPassword = "Forgot password?";
+  static const String submit = 'Submit';
+}
+
+
+class ErrorStrConstants{
+  static const String usernameValidationError = 'Must be between 1 and 50 characters.';
+  static const String phoneNumberValidationError = 'Must be between 1 and 50 characters.';
+  static const String emailValidationError = 'Must be between 1 and 50 characters.';
+  static const String passwordValidationError = 'Must be between 12 and 32 characters';
 }
