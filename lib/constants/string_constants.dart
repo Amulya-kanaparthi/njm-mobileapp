@@ -1,12 +1,11 @@
-
-  /// This class contains all the string constants used in the application.
-  /// It helps in maintaining consistency and makes it easier to manage text across the app.
-  /// You can add more strings as needed.
-  /// Example usage: Text(StringConstants.appName)
-  /// General Strings
-  /// These can be used throughout the app for various labels and messages
-  /// Example: Text(StringConstants.appName)
-  /// ---------------------------------------------------------------
+/// This class contains all the string constants used in the application.
+/// It helps in maintaining consistency and makes it easier to manage text across the app.
+/// You can add more strings as needed.
+/// Example usage: Text(StringConstants.appName)
+/// General Strings
+/// These can be used throughout the app for various labels and messages
+/// Example: Text(StringConstants.appName)
+/// ---------------------------------------------------------------
 class StringConstants {
   static const String appName = "NJM";
   static const String welcome = "Welcome to NJM";
@@ -40,15 +39,18 @@ class StringConstants {
   static const String sendResetLink = "Send Reset Link";
   static const String enterRegisteredEmail =
       "Please enter your registered email to receive a password reset link.";
-  static const String enterOTPSentToRegisteredEmail = 'Enter the OTP sent to your registered email.';
+  static const String enterOTPSentToRegisteredEmail =
+      'Enter the OTP sent to your registered email.';
+  
   /// Screen Titles
   /// These can be used in AppBars or as section headers
   ///
   /// Example: AppBar(title: Text(StringConstants.registerScreenTitle))
   /// ---------------------------------------------------------------
-  static const String registerScreenTitle = "Register Screen";
-  static const String loginScreenTitle = "Login Screen";
-  static const String otpScreenTitle = "OTP Screen";
+  static const String registerScreenTitle = "Register";
+  static const String loginScreenTitle = "Login";
+  static const String otpScreenTitle = "OTP";
+  static const String forgotPasswordScreenTitle = "Forgot Password";
 }
 
 /// Button Texts
@@ -79,10 +81,13 @@ class ButtonStrConstants {
   static const String submit = 'Submit';
 }
 
-
-class ErrorStrConstants{
-  static const String usernameValidationError = 'Must be between 1 and 50 characters.';
-  static const String phoneNumberValidationError = 'Must be between 1 and 50 characters.';
-  static const String emailValidationError = 'Must be between 1 and 50 characters.';
-  static const String passwordValidationError = 'Must be between 12 and 32 characters';
+class ErrorStrConstants {
+  static const String usernameValidationError =
+      'Must be between 1 and 50 characters.';
+  static const String phoneNumberValidationError =
+      'Must be between 1 and 50 characters.';
+  static const String emailValidationError =
+      'Must be between 1 and 50 characters.';
+  static const String passwordValidationError =
+      'Must be between 12 and 32 characters';
 }
