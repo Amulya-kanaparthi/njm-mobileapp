@@ -7,7 +7,7 @@ import 'package:njm_mobileapp/utility/Utility.dart';
 
 class ApiHandler {
   static const String baseUrl =
-      "http://192.168.31.149:8000"; // Replace with your API base URL
+      "http://192.168.31.149:3000"; // Replace with your API base URL
 
   /// Generic GET Request
   static Future<dynamic> getRequest(
@@ -41,13 +41,12 @@ class ApiHandler {
     final url = Uri.parse("$baseUrl$endpoint");
     final requestBody = jsonEncode(body ?? {});
 
-    print("[POST REQUEST]");
+    print("[POST REQUEST]----------------------------------------");
     print("Base URL: $baseUrl");
     print("Final URL: $url");
     if (headers != null && headers.isNotEmpty) print("Headers: $headers");
     print("Request Body:");
     JsonUtils.prettyPrint(body ?? {}); // Pretty-print request body
-    print("------------------------------------------------------");
 
     try {
       final response = await http.post(

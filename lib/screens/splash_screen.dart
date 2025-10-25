@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:njm_mobileapp/constants/image_constants.dart';
 import 'package:njm_mobileapp/screens/login_screen.dart';
+import 'package:njm_mobileapp/screens/tabs.dart';
+import 'package:njm_mobileapp/storage/user_storage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,10 +13,12 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   double _opacity = 0.0;
+  bool _isloggedIn = false;
 
   @override
   void initState() {
     super.initState();
+    _checkLoginStatus();
     // Start fade-in animation
     Future.delayed(const Duration(milliseconds: 300), () {
       setState(() => _opacity = 1.0);
@@ -24,15 +28,26 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
+        MaterialPageRoute(
+          builder: (context) =>
+              _isloggedIn ? const TabsScreen() : const LoginScreen(),
+        ),
       );
+    });
+  }
+
+  Future<void> _checkLoginStatus() async {
+    final loggedIn = UserStorage.isLoggedIn();
+
+    setState(() {
+      _isloggedIn = loggedIn;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 37, 95, 176),
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
         child: AnimatedOpacity(
           opacity: _opacity,
@@ -48,7 +63,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
-                  color: Colors.black87,
                   letterSpacing: 0.5,
                 ),
               ),

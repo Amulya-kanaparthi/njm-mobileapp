@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:njm_mobileapp/constants/image_constants.dart';
+import 'package:njm_mobileapp/constants/key_constants.dart';
 import 'package:njm_mobileapp/constants/string_constants.dart';
+import 'package:njm_mobileapp/models/user_model.dart';
 import 'package:njm_mobileapp/network/api_handler.dart';
 import 'package:njm_mobileapp/network/end_point.dart';
 import 'package:njm_mobileapp/screens/forgot_password_screen.dart';
 import 'package:njm_mobileapp/screens/register_screen.dart';
+import 'package:njm_mobileapp/screens/tabs.dart';
+import 'package:njm_mobileapp/storage/secure_storage.dart';
+import 'package:njm_mobileapp/storage/user_storage.dart';
+import 'package:njm_mobileapp/utility/Utility.dart';
+import 'package:njm_mobileapp/utility/showAlertDialog.dart';
 import 'package:njm_mobileapp/widgets/custom_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,23 +23,57 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  var _enteredEmail = '';
+  var _enteredPassword = '';
+  bool _isLoading = false;
 
-  void _submitLogin() {
-    if (_formKey.currentState!.validate()) {
-      // Process login
-      ApiHandler.postRequest(
-            EndPoint.login,
-            body: {
-              'username': 'example_username',
-              'password': 'example_password',
-            },
-          )
-          .then((response) {
-            // Handle successful login
-          })
-          .catchError((error) {
-            // Handle login error
-          });
+  void _submitLogin() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    _formKey.currentState!.save();
+
+    setState(() => _isLoading = true);
+
+    try {
+      final response = await ApiHandler.postRequest(
+        EndPoint.login,
+        body: {
+          KeyConstants.email: _enteredEmail,
+          KeyConstants.password: _enteredPassword,
+        },
+      );
+
+      if (response[KeyConstants.status] == 1) {
+        final accessToken = response[KeyConstants.access_token];
+        final refreshToken = response[KeyConstants.refresh_token];
+
+        final userJson = response[KeyConstants.user];
+        final user = UserModel.fromJson(userJson);
+
+        await SecureStorage.saveData(KeyConstants.access_token, accessToken);
+        await SecureStorage.saveData(KeyConstants.refresh_token, refreshToken);
+
+        await UserStorage.saveUser(user);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const TabsScreen()),
+        );
+      } else {
+        AlertDialogHelper.showBasicAlert(
+          context: context,
+          title: 'Login Failed',
+          message: response['message'] ?? 'Please try again later.',
+        );
+      }
+    } catch (e) {
+      AlertDialogHelper.showBasicAlert(
+        context: context,
+        title: 'Error',
+        message: e.toString(),
+      );
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
@@ -42,99 +83,125 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            /// NJM Logo
-            Image.asset(ImageConstants.splashLogo, width: 200, height: 200),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  /// User name or email TextField
-                  CustomTextField(
-                    label: StringConstants.userNameEmailMobileNumber,
-                  ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 80),
+                    Image.asset(
+                      ImageConstants.splashLogo,
+                      width: 200,
+                      height: 200,
+                    ),
+                    const SizedBox(height: 20),
 
-                  SizedBox(height: 15),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          // Email TextField
+                          CustomTextField(
+                            label: StringConstants.userNameEmailMobileNumber,
+                            validator: Utility.email,
+                            onsaved: (newValue) {
+                              _enteredEmail = newValue!;
+                            },
+                          ),
+                          const SizedBox(height: 15),
 
-                  /// Password TextField
-                  CustomTextField(
-                    label: StringConstants.password,
-                    isPassword: true,
-                  ),
+                          // Password TextField
+                          CustomTextField(
+                            label: StringConstants.password,
+                            isPassword: true,
+                            validator: Utility.password,
+                            onsaved: (newValue) {
+                              _enteredPassword = newValue!;
+                            },
+                          ),
+                          const SizedBox(height: 20),
 
-                  SizedBox(height: 15),
+                          // Login Button
+                          SizedBox(
+                            width: double.infinity,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: _isLoading ? null : _submitLogin,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                foregroundColor: Colors.white,
+                                shape: const StadiumBorder(),
+                              ),
+                              child: _isLoading
+                                  ? const CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                  : const Text(
+                                      'Login',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
 
-                  /// Login button
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: _submitLogin,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(
-                          context,
-                        ).colorScheme.primary, // Button color
-                        foregroundColor: Colors.white, // Text color
-                        shape: StadiumBorder(),
-                      ),
-                      child: Text(
-                        ButtonStrConstants.login,
-                        style: TextStyle(fontSize: 16),
+                          // Forgot Password
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ForgotPasswordScreen(),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                'Forgot Password?',
+                                style: TextStyle(fontSize: 14),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-
-                  /// Forgot password button
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ForgotPasswordScreen(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          ButtonStrConstants.forgotPassword,
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.only(bottom: 30),
-              child: SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RegisterScreen()),
-                    );
-                  },
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(
-                      color: Theme.of(context).colorScheme.secondary,
-                      width: 1,
-                    ),
-                    foregroundColor: Theme.of(
-                      context,
-                    ).colorScheme.secondary, // Text color
-                    shape: StadiumBorder(),
-                  ),
-                  child: Text(
-                    ButtonStrConstants.createNewAccount,
-                    style: TextStyle(fontSize: 16),
-                  ),
+            // Bottom "Already have account?" section
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: TextButton(
+                onPressed: () {
+                  AlertDialogHelper.showActionAlert(
+                    context: context,
+                    title: "",
+                    message: StringConstants.alreadyHaveAccount,
+                    actions: [
+                      DialogType.continueCreatingAccount,
+                      DialogType.login,
+                    ],
+                    onActionPressed: (action) {
+                      if (action == DialogType.continueCreatingAccount) {
+                        Navigator.of(context).pop();
+                      } else {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegisterScreen(),
+                          ),
+                        );
+                      }
+                    },
+                  );
+                },
+                child: const Text(
+                  'I already have an account',
+                  style: TextStyle(fontSize: 14),
                 ),
               ),
             ),

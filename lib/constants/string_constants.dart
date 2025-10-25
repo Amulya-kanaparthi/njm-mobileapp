@@ -21,6 +21,7 @@ class StringConstants {
   static const String googleSignIn = "Sign in with Google";
 
   static const String home = "Home";
+  static const String profile = "Account Details";
   static const String settings = "Settings";
   static const String logout = "Logout";
   static const String enterEmail = "Please enter your email";
