@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:njm_mobileapp/utility/Utility.dart';
 
+
 class ApiHandler {
   static const String baseUrl =
       "http://192.168.31.149:3000"; // Replace with your API base URL
@@ -16,11 +17,11 @@ class ApiHandler {
   }) async {
     final url = Uri.parse("$baseUrl$endpoint");
 
+    print("-------------------------------------------------------------------------------------------------------------");
     print("[GET REQUEST]");
     print("Base URL: $baseUrl");
     print("Final URL: $url");
     if (headers != null && headers.isNotEmpty) print("Headers: $headers");
-    print("------------------------------------------------------");
 
     try {
       final response = await http.get(url, headers: headers);
@@ -41,11 +42,12 @@ class ApiHandler {
     final url = Uri.parse("$baseUrl$endpoint");
     final requestBody = jsonEncode(body ?? {});
 
-    print("[POST REQUEST]----------------------------------------");
+    print("-------------------------------------------------------------------------------------------------------------");
+    print("POST REQUEST");
     print("Base URL: $baseUrl");
-    print("Final URL: $url");
+    print("Requested URL: $url");
     if (headers != null && headers.isNotEmpty) print("Headers: $headers");
-    print("Request Body:");
+    print("Body:");
     JsonUtils.prettyPrint(body ?? {}); // Pretty-print request body
 
     try {
@@ -75,7 +77,7 @@ class ApiHandler {
     } else {
       print("Empty response body");
     }
-    print("======================================================");
+    print("=============================================================================================================");
 
     return responseBody; // Return JSON as-is
   }

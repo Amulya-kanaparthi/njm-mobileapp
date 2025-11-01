@@ -16,6 +16,8 @@ class StringConstants {
   static const String phoneNumber = "Phone number";
   static const String email = "Email";
   static const String password = "Password";
+  static const String newPassword = "New Password";
+  static const String confirmNewPassword = "Confirm new Password";
   static const String forgotPassword = "Forgot Password?";
   static const String signUp = "Sign Up";
   static const String googleSignIn = "Sign in with Google";
@@ -39,10 +41,10 @@ class StringConstants {
   static const String resetPassword = "Reset Password";
   static const String sendResetLink = "Send Reset Link";
   static const String enterRegisteredEmail =
-      "Please enter your registered email to receive a password reset link.";
+      "Please enter your registered email to receive a authentication link.";
   static const String enterOTPSentToRegisteredEmail =
       'Enter the OTP sent to your registered email.';
-  
+
   /// Screen Titles
   /// These can be used in AppBars or as section headers
   ///
@@ -52,6 +54,7 @@ class StringConstants {
   static const String loginScreenTitle = "Login";
   static const String otpScreenTitle = "OTP";
   static const String forgotPasswordScreenTitle = "Forgot Password";
+  static const String resetPasswordScreenTitle = "Reset Password";
 }
 
 /// Button Texts
@@ -80,6 +83,7 @@ class ButtonStrConstants {
   static const String createNewAccount = "Create new account";
   static const String forgotPassword = "Forgot password?";
   static const String submit = 'Submit';
+  static const String reset = 'Reset';
 }
 
 class ErrorStrConstants {
