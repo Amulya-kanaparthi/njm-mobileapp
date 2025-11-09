@@ -8,7 +8,7 @@ import 'package:njm_mobileapp/utility/Utility.dart';
 
 class ApiHandler {
   static const String baseUrl =
-      "http://192.168.31.149:3000"; // Replace with your API base URL
+      "http://192.168.31.149:8000"; // Replace with your API base URL
 
   /// Generic GET Request
   static Future<dynamic> getRequest(
@@ -64,6 +64,16 @@ class ApiHandler {
       rethrow;
     }
   }
+
+  static String buildEndpoint(String path, [Map<String, String>? params]) {
+  if (params == null || params.isEmpty) return path;
+
+  params.forEach((key, value) {
+    path = path.replaceAll(':$key', value);
+  });
+  return path;
+}
+
 
   /// Response Handler (returns JSON as-is and pretty-prints it)
   static dynamic _handleResponse(http.Response response) {

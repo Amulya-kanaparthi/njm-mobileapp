@@ -23,6 +23,7 @@ class StringConstants {
   static const String googleSignIn = "Sign in with Google";
 
   static const String home = "Home";
+  static const String bible = "Bible";
   static const String profile = "Account Details";
   static const String settings = "Settings";
   static const String logout = "Logout";
@@ -95,4 +96,9 @@ class ErrorStrConstants {
       'Must be between 1 and 50 characters.';
   static const String passwordValidationError =
       'Must be between 12 and 32 characters';
+}
+
+class BoxTitleStrConstants {
+  static const String userBox = 'User';
+  static const String bibleBox = 'Bible';
 }

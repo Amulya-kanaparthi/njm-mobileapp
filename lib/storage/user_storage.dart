@@ -1,9 +1,10 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:njm_mobileapp/constants/key_constants.dart';
+import 'package:njm_mobileapp/constants/string_constants.dart';
 import 'package:njm_mobileapp/models/user_model.dart';
 
 class UserStorage {
-  static const _boxName = 'User';
+  static const _boxName = BoxTitleStrConstants.userBox;
   static late Box _box;
 
   static Future<void> init() async {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:njm_mobileapp/constants/string_constants.dart';
 import 'package:njm_mobileapp/screens/splash_screen.dart';
 import 'package:njm_mobileapp/storage/user_storage.dart';
 
@@ -6,13 +8,14 @@ final theme = ThemeData(
   useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.light,
-    seedColor: const Color.fromARGB(255, 71, 30, 50),
+    seedColor: const Color.fromARGB(255, 66, 2, 22),
   ),
 );
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await UserStorage.init();
+  await Hive.openBox(BoxTitleStrConstants.bibleBox);
   runApp(const App());
 }
 

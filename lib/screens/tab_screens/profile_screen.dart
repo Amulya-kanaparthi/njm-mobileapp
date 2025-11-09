@@ -18,7 +18,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   UserModel? _user;
-  bool _isLoading = false;
 
   @override
   void initState() {
@@ -76,7 +75,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         message: e.toString(),
       );
     } finally {
-      setState(() => _isLoading = false);
     }
   }
 

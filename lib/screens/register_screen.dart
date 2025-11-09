@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:njm_mobileapp/constants/image_constants.dart';
 import 'package:njm_mobileapp/constants/key_constants.dart';
 import 'package:njm_mobileapp/constants/string_constants.dart';
 import 'package:njm_mobileapp/network/api_handler.dart';
@@ -145,48 +144,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ),
                       ),
-                      SizedBox(height: 10),
-                      Text('or', style: TextStyle(fontSize: 16)),
-                      SizedBox(height: 10),
+                      SizedBox(height: 25),
+                      // Text('or', style: TextStyle(fontSize: 16)),
+                      // SizedBox(height: 10),
 
                       /// Signup with google
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: OutlinedButton.icon(
-                          onPressed: () async {
-                            // Handle Google Sign-Up logic here
-                            // final user = await AuthService().signInWithGoogle();
-                            // if (user != null) {
-                            //   print('User signed up with Google: $user');
-                            // } else {
-                            //   print('Google Sign-Up failed or was cancelled');
-                            // }
-                          },
-                          icon: Image.asset(
-                            ImageConstants.googleLogo,
-                            height: 24, // Icon size
-                            width: 24,
-                          ),
-                          label: Text(
-                            StringConstants.googleSignIn,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(
-                              color: Theme.of(context).colorScheme.primary,
-                              width: 1,
-                            ),
-                            shape: StadiumBorder(),
-                            foregroundColor: Theme.of(
-                              context,
-                            ).colorScheme.primary,
-                          ),
-                        ),
-                      ),
+                      // SizedBox(
+                      //   width: double.infinity,
+                      //   height: 50,
+                      //   child: OutlinedButton.icon(
+                      //     onPressed: () async {
+                      //       // Handle Google Sign-Up logic here
+                      //       // final user = await AuthService().signInWithGoogle();
+                      //       // if (user != null) {
+                      //       //   print('User signed up with Google: $user');
+                      //       // } else {
+                      //       //   print('Google Sign-Up failed or was cancelled');
+                      //       // }
+                      //     },
+                      //     icon: Image.asset(
+                      //       ImageConstants.googleLogo,
+                      //       height: 24, // Icon size
+                      //       width: 24,
+                      //     ),
+                      //     label: Text(
+                      //       StringConstants.googleSignIn,
+                      //       style: TextStyle(
+                      //         fontSize: 16,
+                      //         color: Theme.of(context).colorScheme.primary,
+                      //       ),
+                      //     ),
+                      //     style: OutlinedButton.styleFrom(
+                      //       side: BorderSide(
+                      //         color: Theme.of(context).colorScheme.primary,
+                      //         width: 1,
+                      //       ),
+                      //       shape: StadiumBorder(),
+                      //       foregroundColor: Theme.of(
+                      //         context,
+                      //       ).colorScheme.primary,
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

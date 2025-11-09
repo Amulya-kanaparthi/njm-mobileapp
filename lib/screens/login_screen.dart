@@ -125,11 +125,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                             width: double.infinity,
                             height: 50,
-                            child: ElevatedButton(
+                            child: ElevatedButton( 
                               onPressed: _isLoading ? null : _submitLogin,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.primary,
+                                backgroundColor: Theme.of(
+                                  context,
+                                ).colorScheme.primary,
                                 foregroundColor: Colors.white,
                                 shape: const StadiumBorder(),
                               ),
@@ -138,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       color: Colors.white,
                                     )
                                   : const Text(
-                                      'Login',
+                                      ButtonStrConstants.login,
                                       style: TextStyle(fontSize: 16),
                                     ),
                             ),
@@ -159,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                               },
                               child: const Text(
-                                'Forgot Password?',
+                                ButtonStrConstants.forgotPassword,
                                 style: TextStyle(fontSize: 14),
                               ),
                             ),
@@ -171,41 +172,36 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-
-            // Bottom "Already have account?" section
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: TextButton(
-                onPressed: () {
-                  AlertDialogHelper.showActionAlert(
-                    context: context,
-                    title: "",
-                    message: StringConstants.alreadyHaveAccount,
-                    actions: [
-                      DialogType.continueCreatingAccount,
-                      DialogType.login,
-                    ],
-                    onActionPressed: (action) {
-                      if (action == DialogType.continueCreatingAccount) {
-                        Navigator.of(context).pop();
-                      } else {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegisterScreen(),
-                          ),
-                        );
-                      }
-                    },
-                  );
-                },
-                child: const Text(
-                  'I already have an account',
-                  style: TextStyle(fontSize: 14),
-                ),
-              ),
-            ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: SizedBox(
+          width: double.infinity,
+          height: 50,
+          child: OutlinedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegisterScreen()),
+              );
+            },
+            style: OutlinedButton.styleFrom(
+              side: BorderSide(
+                color: Theme.of(context).colorScheme.primary,
+                width: 1,
+              ),
+              foregroundColor: Theme.of(
+                context,
+              ).colorScheme.primary, // Text color
+              shape: StadiumBorder(),
+            ),
+            child: Text(
+              ButtonStrConstants.createNewAccount,
+              style: TextStyle(fontSize: 16),
+            ),
+          ),
         ),
       ),
     );
