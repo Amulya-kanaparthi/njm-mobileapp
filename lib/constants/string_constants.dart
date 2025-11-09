@@ -45,6 +45,8 @@ class StringConstants {
       "Please enter your registered email to receive a authentication link.";
   static const String enterOTPSentToRegisteredEmail =
       'Enter the OTP sent to your registered email.';
+  static const String teluguBibleTitle = 'పరిశుద్ధ గ్రంధము';
+  static const String englishBibleTitle = 'Holy Bible';
 
   /// Screen Titles
   /// These can be used in AppBars or as section headers

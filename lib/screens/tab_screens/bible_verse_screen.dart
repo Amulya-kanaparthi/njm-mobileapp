@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:njm_mobileapp/network/bible_service.dart';
 import 'package:njm_mobileapp/screens/tab_screens/chapter_selector_dialog.dart';
+import 'package:njm_mobileapp/utility/font_helper.dart';
 
 class BibleVerseScreen extends StatefulWidget {
   final String language;
@@ -75,7 +76,7 @@ class _BibleVerseScreenState extends State<BibleVerseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.book}'),
+        title: Text('${widget.book}',style: FontHelper.getTextStyle(language: widget.language,fontSize: 24,fontWeight: FontWeight.w600),),
         actions: [
           IconButton(
             icon: const Icon(Icons.list),
@@ -91,8 +92,8 @@ class _BibleVerseScreenState extends State<BibleVerseScreen> {
                 final verseNum = verses.keys.elementAt(i);
                 final verseText = verses[verseNum];
                 return ListTile(
-                  leading: Text(verseNum),
-                  title: Text(verseText),
+                  leading: Text(verseNum,style: FontHelper.getTextStyle(language: widget.language),),
+                  title: Text(verseText,style: FontHelper.getTextStyle(language: widget.language),),
                 );
               },
             ),

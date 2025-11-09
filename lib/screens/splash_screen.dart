@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Preload Bible (only once)
     try {
-      await BibleService.fetchBibleFromAPI('english');
+      await BibleService.fetchBibleFromAPI('telugu');
       // Optionally load Telugu too:
       // await BibleService.fetchBibleFromAPI('telugu');
     } catch (e) {

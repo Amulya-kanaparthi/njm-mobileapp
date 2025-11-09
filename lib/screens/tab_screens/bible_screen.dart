@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:njm_mobileapp/constants/image_constants.dart';
+import 'package:njm_mobileapp/constants/key_constants.dart';
+import 'package:njm_mobileapp/constants/string_constants.dart';
 import 'package:njm_mobileapp/network/bible_service.dart';
 import 'package:njm_mobileapp/screens/tab_screens/bible_verse_screen.dart';
+import 'package:njm_mobileapp/utility/font_helper.dart';
 
 class BibleScreen extends StatefulWidget {
   const BibleScreen({super.key});
@@ -10,7 +14,7 @@ class BibleScreen extends StatefulWidget {
 }
 
 class _BibleScreenState extends State<BibleScreen> {
-  String selectedLanguage = "english";
+  String selectedLanguage = "telugu";
   String? selectedBook;
   int? selectedChapter;
 
@@ -34,6 +38,7 @@ class _BibleScreenState extends State<BibleScreen> {
     try {
       await BibleService.fetchBibleFromAPI(selectedLanguage);
       setState(() {
+        books = BibleService.getBooks();
       });
     } catch (e) {
       print("Error: $e");
@@ -45,52 +50,54 @@ class _BibleScreenState extends State<BibleScreen> {
 @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: selectedLanguage == KeyConstants.telugu 
+        ? Text(StringConstants.teluguBibleTitle,style: FontHelper.getTextStyle(language: selectedLanguage,fontSize: 24,fontWeight: FontWeight.w600),) 
+        : Text(StringConstants.englishBibleTitle,style: FontHelper.getTextStyle(language: selectedLanguage,fontSize: 24,fontWeight: FontWeight.w600),),
+        actions: [
+          PopupMenuButton<String>(
+            icon: const Image(image: AssetImage(ImageConstants.languageIcon)),
+            onSelected: (lang) {
+              setState(() => selectedLanguage = lang);
+              _loadBibleData();
+            },
+            itemBuilder: (_) => const [
+              PopupMenuItem(value: "english", child: Text("English")),
+              PopupMenuItem(value: "telugu", child: Text("Telugu")),
+            ],
+          ),
+        ],
+      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
-              padding: const EdgeInsets.all(16),
               itemCount: books.length,
-              itemBuilder: (context, index) {
-                final book = books[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Card(
-                    elevation: 5, // 👈 gives the elevated effect
-                    shadowColor: Colors.black.withOpacity(0.2),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 4,
-                      ),
-                      title: Text(
-                        book,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      trailing: const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 16,
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => BibleVerseScreen(
-                              language: selectedLanguage,
-                              book: book,
-                            ),
-                          ),
-                        );
-                      },
+              itemBuilder: (_, i) => Card(
+                elevation: 2,
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: ListTile(
+                  title: Text(
+                    books[i],
+                    style: FontHelper.getTextStyle(
+                      language: selectedLanguage,
+                      fontSize: 18,
                     ),
                   ),
-                );
-              },
+                  trailing:
+                      const Icon(Icons.arrow_forward_ios_rounded, size: 16),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => BibleVerseScreen(
+                          language: selectedLanguage,
+                          book: books[i],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
     );
   }
